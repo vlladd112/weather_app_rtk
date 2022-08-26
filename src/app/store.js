@@ -1,8 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
+import localWeatherReducer from '../features/weather/localWeatherSlice';
+import searchedWeatherReducer from '../features/weather/searchedWeatherSlice';
+import getLanguage from '../features/userOptions/languageSlice';
+import getUnit from '../features/userOptions/unitSlice';
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    localWeather: localWeatherReducer,
+    searchedWeather: searchedWeatherReducer,
+    language: getLanguage,
+    unit: getUnit
   },
 });
