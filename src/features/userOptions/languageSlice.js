@@ -16,6 +16,6 @@ export const languageSlice = createSlice({
   
 export const { setLanguage } = languageSlice.actions;
 
-export const languageFromState = (state) => {console.log('LLLLLL state', state); return state.language}
+export const languageFromState = (state) => state.language;
 
 export default languageSlice.reducer;

@@ -17,6 +17,6 @@ export const unitSlice = createSlice({
   
 export const { setUnit } = unitSlice.actions;
 
-export const unitFromState = (state) => {console.log('UUUUUUUUUU state', state); return state.unit}
+export const unitFromState = (state) => state.unit;
 
 export default unitSlice.reducer;

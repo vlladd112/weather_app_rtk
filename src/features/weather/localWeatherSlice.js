@@ -3,7 +3,7 @@ import {getLocalWeatherUrlAsync} from "./weatherAPI";
 
 const initialState = {
   value: 0,
-  status: 'idle',
+  status: 'loading',
   weatherData: {},
 };
 
@@ -37,5 +37,6 @@ export const localWeatherSlice = createSlice({
 });
 
 export const localWeatherFromState = (state) => state.localWeather.weatherData;
+export const localWeatherStatus = (state) => state.localWeather.status;
 
 export default localWeatherSlice.reducer;

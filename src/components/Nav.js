@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {
-  getLocalWeather,
-  localWeatherFromState
+  getLocalWeather
 } from '../features/weather/localWeatherSlice';
 import { setLanguage } from '../features/userOptions/languageSlice';
 import { setUnit } from '../features/userOptions/unitSlice';
 import { useEffect } from 'react';
 import styles from '../styles/navigation.css';
+import LocalWeather from '../components/LocalWeather';
 
 export function Nav() {
   const dispatch = useDispatch();
@@ -15,8 +15,6 @@ export function Nav() {
   const [currentLocation, setCurrentLocation] = useState(null);
   const [unitOption, setUnitOption] = useState('metric');
   const [languageOption, setLanguageOption] = useState('en');
-
-  const localWeatherDetails = useSelector(localWeatherFromState);
 
   useEffect(() => {
     // get geolocation from browwser - if it doesn't work you
@@ -50,13 +48,8 @@ export function Nav() {
   }
 
   return (
-    ( localWeatherDetails.main && <nav className='navigation'>
-      <div className='local-weather'>
-        <div className='location'>
-          <div className='city'>{localWeatherDetails.name} {Math.floor(localWeatherDetails.main.temp)}&#176;</div>
-          <div className='weather-description'>{localWeatherDetails.weather[0].description}</div>
-        </div>
-      </div>
+    <nav className='navigation'>
+      <LocalWeather />
       <div className='user-options'>
         <form id='unit' className='option-form'>
           <div className='form-title'>Unit</div>
@@ -82,6 +75,5 @@ export function Nav() {
         </form>
       </div>  
     </nav>
-    )
   );
 }

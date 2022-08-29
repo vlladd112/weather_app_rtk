@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
-import { getSearchedWeather, searchedWeatherFromState } from '../features/weather/searchedWeatherSlice';
+import { getSearchedWeather } from '../features/weather/searchedWeatherSlice';
 import { languageFromState } from '../features/userOptions/languageSlice';
 import { unitFromState } from '../features/userOptions/unitSlice';
+import { SearchedWeather } from '../components/SearchedWeather';
 
 export function Content() {
     const dispatch = useDispatch();
@@ -10,7 +11,6 @@ export function Content() {
     const [locationInputValue, setLocationInputValue] = useState('');
     const [searchedLocation, setSearchedLocation] = useState('');
 
-    const searchedWeatherDetails = useSelector(searchedWeatherFromState);
     const languageDetails = useSelector(languageFromState);
     const unitDetails = useSelector(unitFromState);
 
@@ -43,15 +43,7 @@ useEffect(() => {
                     <button onClick={(e) => {searchLocation(e)}}>Search</button>
                 </form>
             </div>
-            <div className="searched-location-details">
-                <div>
-                    { searchedWeatherDetails.name ? searchedWeatherDetails.name : '' },&nbsp;
-                    { searchedWeatherDetails.sys ? searchedWeatherDetails.sys.country : '' }&nbsp;
-                    { searchedWeatherDetails.main ? Math.floor(searchedWeatherDetails.main.temp) : '' }&#176;</div>
-                <div>{searchedWeatherDetails.weather ? searchedWeatherDetails.weather[0].description : '' }</div>
-                <div>Feels like { searchedWeatherDetails.main ? Math.floor(searchedWeatherDetails.main.feels_like) : '' }&#176;</div>
-                <div>Wind speed: { searchedWeatherDetails.wind ? Math.floor(searchedWeatherDetails.wind.speed) : '' }</div>
-            </div>
+            <SearchedWeather />
         </main>
     );
 }

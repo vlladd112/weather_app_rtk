@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import {getSearchedWeatherUrlAsync} from "./weatherAPI";
 
 const initialState = {value: 0,
-    status: 'idle',
+    status: 'none',
     weatherData: {},
   };
 
@@ -28,14 +28,15 @@ export const searchedWeatherSlice = createSlice({
       })
       .addCase(getSearchedWeather.fulfilled, (state, action) => {
         state.status = 'idle';
-        if(action.payload) {
-          state.weatherData = action.payload;
-        }
-        console.log('STATE AFTER SEARCHED LOCATION REQUEST', state);
+        state.weatherData = action.payload;
+      })
+      .addCase(getSearchedWeather.rejected, (state, action) => {
+        state.status = 'rejected';
       })
     }
   })
 
   export const searchedWeatherFromState = (state) => state.searchedWeather.weatherData;
+  export const searchedWeatherStatus = (state) => state.searchedWeather.status;
 
   export default searchedWeatherSlice.reducer;
