@@ -15,7 +15,6 @@ export default function LocalWeather () {
           </div>
           <div className='weather-description'>{localWeatherDetails.weather[0].description}</div>
         </div>
-        {/* <img src={`http://openweathermap.org/img/wn/${localWeatherDetails.weather[0].icon}.png`} /> */}
       </div>
         )
     )}
