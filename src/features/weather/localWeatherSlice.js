@@ -2,7 +2,6 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import {getLocalWeatherUrlAsync} from "./weatherAPI";
 
 const initialState = {
-  value: 0,
   status: 'loading',
   weatherData: {},
 };
@@ -32,7 +31,10 @@ export const localWeatherSlice = createSlice({
       .addCase(getLocalWeather.fulfilled, (state, action) => {
         state.status = 'idle';
         state.weatherData = action.payload;
-      });
+      })
+      .addCase(getLocalWeather.rejected, (state, action) => {
+        state.status = 'rejected';
+      })
   },
 });
 

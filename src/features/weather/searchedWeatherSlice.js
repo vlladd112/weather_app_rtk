@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import {getSearchedWeatherUrlAsync} from "./weatherAPI";
 
-const initialState = {value: 0,
-    status: 'none',
-    weatherData: {},
-  };
+const initialState = {
+  status: 'none',
+  weatherData: {},
+};
 
 export const getSearchedWeather = createAsyncThunk(
     'weather/getSearchedWeather',

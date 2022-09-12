@@ -17,7 +17,7 @@ export function Content() {
     const handleLocationInput = (e) => {
         setLocationInputValue(e.target.value);
     }
-    const searchLocation = (e) => {
+    const searchForLocation = (e) => {
         e.preventDefault();
         setSearchedLocation(locationInputValue);
     }
@@ -40,7 +40,7 @@ useEffect(() => {
                 <form>
                     <label>Search location</label>
                     <input id='search-location' type='search' value={locationInputValue} onChange={(e) => {handleLocationInput(e)}}/>
-                    <button onClick={(e) => {searchLocation(e)}}>Search</button>
+                    <button onClick={(e) => {searchForLocation(e)}}>Search</button>
                 </form>
             </div>
             <SearchedWeather />

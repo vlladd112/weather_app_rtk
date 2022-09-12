@@ -23,4 +23,9 @@ export default function LocalWeather () {
             <div className='local-weather'>LOADING...</div>
         )
     }
+    if(localWeatherCurrentStatus === 'rejected') {
+      return (
+          <div className="searched-location-details">network erorr... make sure the location you entered is valid else contact your provider</div>
+      )
+  }
 }
