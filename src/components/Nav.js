@@ -6,6 +6,7 @@ import {
 import { setLanguage } from '../features/userOptions/languageSlice';
 import { setUnit } from '../features/userOptions/unitSlice';
 import { useEffect } from 'react';
+// eslint-disable-next-line
 import styles from '../styles/navigation.css';
 import LocalWeather from '../components/LocalWeather';
 

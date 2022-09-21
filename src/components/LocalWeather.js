@@ -11,7 +11,7 @@ export default function LocalWeather () {
         ( localWeatherDetails.main && <div className='local-weather'>
         <div className='location'>
           <div className='city'>{localWeatherDetails.name} {Math.floor(localWeatherDetails?.main?.temp)}&#176;
-            <img src={`http://openweathermap.org/img/wn/${localWeatherDetails.weather[0].icon}.png`} />
+            <img src={`http://openweathermap.org/img/wn/${localWeatherDetails.weather[0].icon}.png`} alt='' />
           </div>
           <div className='weather-description'>{localWeatherDetails.weather[0].description}</div>
         </div>

@@ -14,7 +14,7 @@ export function SearchedWeather () {
                     { searchedWeatherDetails.sys ? searchedWeatherDetails.sys.country : '' }&nbsp;
                     { searchedWeatherDetails.main ? Math.floor(searchedWeatherDetails.main.temp) : '' }&#176;</div>
                 <div>Feels like { searchedWeatherDetails.main ? Math.floor(searchedWeatherDetails.main.feels_like) : '' }&#176;</div>
-                <img src={`http://openweathermap.org/img/wn/${searchedWeatherDetails.weather[0].icon}.png`} />
+                <img src={`http://openweathermap.org/img/wn/${searchedWeatherDetails.weather[0].icon}.png`} alt='' />
                 <div>{searchedWeatherDetails.weather ? searchedWeatherDetails.weather[0].description : '' }</div>
                 
                 <div>Wind speed: { searchedWeatherDetails.wind ? Math.floor(searchedWeatherDetails.wind.speed) : '' }</div>
