@@ -11,6 +11,7 @@ import {
 } from 'firebase/auth';
 import { auth } from './firebase-config';
 import { useEffect } from 'react';
+import { AuthWrapper } from './components/AuthWrapper';
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
 
   // prevents infinite loop when you start typing inside an input
   useEffect (() => { 
+    // handles login state whenever the user logs in or out
     onAuthStateChanged(auth, (currentUser => {
       setUser(currentUser);
     }))
@@ -69,7 +71,7 @@ const logout = async () => {
           <h3>Login</h3>
           <input placeholder='Email...' onChange={(e) => {setLoginEmail(e.target.value)}}/>
           <br></br>
-          <input placeholder='Password...' onChange={(e) => {setLoginPassword(e.target.value)}}/><br />
+          <input type='password' placeholder='Password...' onChange={(e) => {setLoginPassword(e.target.value)}}/><br />
           <button onClick={login}>Login</button>
           <br />
           <br />
@@ -79,6 +81,7 @@ const logout = async () => {
           <button onClick={logout}>Sign out</button>
         </div>
       </div>
+      <AuthWrapper />
     </div>
   );
 }

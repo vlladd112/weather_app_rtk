@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 // eslint-disable-next-line
 import styles from '../styles/navigation.css';
 import LocalWeather from '../components/LocalWeather';
+import { FormRadioChange } from './FormRadioChange';
 
 export function Nav() {
   const dispatch = useDispatch();
@@ -52,28 +53,8 @@ export function Nav() {
     <nav className='navigation'>
       <LocalWeather />
       <div className='user-options'>
-        <form id='unit' className='option-form'>
-          <div className='form-title'>Unit</div>
-          <div className='options-wrapper'>
-            <div className='option-item'>
-              <input type='radio' name='unit' id='metric' value='metric' defaultChecked onChange={(e) => {changeUnit(e)}}/><label>Metric</label>
-            </div>
-            <div className='option-item'>
-              <input type='radio' name='unit' id='imperial' value='imperial' onChange={(e) => {changeUnit(e)}}/><label>Imperial</label>
-            </div>
-          </div>
-        </form>
-        <form id='language' className='option-form'>
-          <div className="form-title">Langauge</div>
-          <div className='options-wrapper'>
-            <div className="option-item">
-              <input type='radio' name='language' id='english' value='en' defaultChecked onChange={(e) => {changeLanguage(e)}}/><label>EN</label>
-            </div>
-            <div className="option-item">
-              <input type='radio' name='language' id='romanian' value='ro' onChange={(e) => {changeLanguage(e)}}/><label>RO</label>
-            </div>
-          </div>
-        </form>
+        <FormRadioChange eventHandler={changeUnit} type='unit' title='Unit' option1='metric' option2='imperial' />
+        <FormRadioChange eventHandler={changeLanguage} type='language' title='Language' option1='en' option2='ro' />
       </div>  
     </nav>
   );

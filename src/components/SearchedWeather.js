@@ -8,17 +8,18 @@ export function SearchedWeather () {
 
     if(searchedWeatherCurrentStatus === 'idle') {
         return (
-            <div className="searched-location-details">
+            (searchedWeatherDetails && <div className="searched-location-details">
                 <div>
                     { searchedWeatherDetails.name ? searchedWeatherDetails.name : '' },&nbsp;
                     { searchedWeatherDetails.sys ? searchedWeatherDetails.sys.country : '' }&nbsp;
                     { searchedWeatherDetails.main ? Math.floor(searchedWeatherDetails.main.temp) : '' }&#176;</div>
                 <div>Feels like { searchedWeatherDetails.main ? Math.floor(searchedWeatherDetails.main.feels_like) : '' }&#176;</div>
-                <img src={`http://openweathermap.org/img/wn/${searchedWeatherDetails.weather[0].icon}.png`} alt='' />
+                <img src={ searchedWeatherDetails.weather ? `http://openweathermap.org/img/wn/${searchedWeatherDetails.weather[0].icon}.png` : ''} alt='' />
                 <div>{searchedWeatherDetails.weather ? searchedWeatherDetails.weather[0].description : '' }</div>
                 
                 <div>Wind speed: { searchedWeatherDetails.wind ? Math.floor(searchedWeatherDetails.wind.speed) : '' }</div>
             </div>
+            )
         )
     }
     if(searchedWeatherCurrentStatus === 'loading') {

@@ -32,7 +32,7 @@ export const localWeatherSlice = createSlice({
         state.status = 'idle';
         state.weatherData = action.payload;
       })
-      .addCase(getLocalWeather.rejected, (state, action) => {
+      .addCase(getLocalWeather.rejected, (state) => {
         state.status = 'rejected';
       })
   },
