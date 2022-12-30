@@ -11,6 +11,6 @@ export const store = configureStore({
     searchedWeather: searchedWeatherReducer,
     language: getLanguage,
     unit: getUnit,
-    userAuthentication: loginUserReducer
+    loginStatus: loginUserReducer
   },
 });

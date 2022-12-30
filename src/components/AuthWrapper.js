@@ -1,62 +1,66 @@
 import { useState, useEffect } from 'react';
-import { LoginForm } from './auth/LoginForm';
-import { loginUser, setLoggedUser } from '../features/authentication/loginSlice';
+import { UserForm } from './auth/UserForm';
 import { useDispatch, useSelector } from 'react-redux';
-import { onAuthStateChanged, } from 'firebase/auth';
+import { onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from './../firebase-config';
-import { currentUserFromState, authStatus } from '../features/authentication/loginSlice';
-// import { useSelector } from 'react-redux';
+import { setLoginStatus, loginStatusFromState } from "../features/authentication/loginSlice";
 
 
 export function AuthWrapper () {
-  const [registerEmail, setRegisterEmailx] = useState('');
-  const [registerPassword, setRegisterPasswordx] = useState('');
-  const [loginEmail, setLoginEmail] = useState('');
-  const [loginPassword, setLoginPassword] = useState('');
-  const [loggedUser, setLoggedUser] = useState('')
+  const [loginEmail, setLoginEmailx] = useState('');
+  const [loginPassword, setLoginPasswordx] = useState('');
+  let [showRegisterForm, setShowRegisterForm] = useState(false);
+  let [showLoadingSpinner, setShowLoadingSpinner] = useState(false);
+
+  const [loggedUser, setLoggedUser] = useState('')  // use the login user from auth
 
   const dispatch = useDispatch();
 
-  const authenticationStatus = useSelector(authStatus);
-  const currentUserX = useSelector(currentUserFromState);
 
+  const authenticationStatus = useSelector(loginStatusFromState);
+  const currentUserX = loggedUser;
 
-  // login user
-const login = async (e) => {
+  const loginFormLinkAction = (e) => {
     e.preventDefault();
-    const params = {
-        auth: auth,
-        registerEmail: registerEmail,
-        registerPassword: registerPassword
-    }
-    dispatch(loginUser(params));
-    try {
-    //   const user = await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
-    //   console.log('user:', user);
-    } catch (error) {
-    //   console.log('error:', error.message);
-    }
+    setShowRegisterForm(!showRegisterForm);
   }
 
   // // LOGIN LIKE APP.JS
-  // const login = async () => {
-  //   try {
-  //     const user = await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
-  //     console.log('user:', user);
-  //   } catch (error) {
-  //     console.log('error:', error.message);
-  //   }
-  // }
+  const login = async (e) => {
+    e.preventDefault();
+    setShowLoadingSpinner(true);
+    dispatch(setLoginStatus('loading'));
+    try {
+      const user = await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
+      console.log('user:', user);
+    } catch (error) {
+      console.log('error:', error.message);
+    }
+    dispatch(setLoginStatus('idle'));   //TODO. keep the same state as before "loading"(dispatch(setLoginStatus('loading')); - check to see what happens when you are signed in or mot signed in and use unvalid credentials
+    setShowLoadingSpinner(false);
+  }
 
 
   // prevents infinite loop when you start typing inside an input
   useEffect (() => { 
+    console.log('dggfggfgfgfd', authenticationStatus);
     // handles login state whenever the user logs in or out
     onAuthStateChanged(auth, (currentUser => {
-        // setLoggedUser(currentUser.email);
-        dispatch(setLoggedUser(currentUser.email))
+        dispatch(setLoggedUser(currentUser?.email))
     }))
   }, [])
+
+  const loginFormConfig = {
+    formName: 'Login',
+    placeholder1: 'User...',
+    placeholder2: 'Password...',
+    setOption1: setLoginEmailx,
+    setOption2: setLoginPasswordx,
+    handleEvent: login,
+    formLink: true,
+    formLinkAction: loginFormLinkAction,
+    showRegisterForm: showRegisterForm
+  }
 
 
   if(authenticationStatus === 'loading') {
@@ -69,30 +73,22 @@ const login = async (e) => {
     return (
         <div>
             <form className="login">
-                <LoginForm formName={'Irina Loghin'} placeholder1={'user...'} placeholder2='password...' setLoginEmailxxx={setRegisterEmailx} setLoginPasswordxxx={setRegisterPasswordx} handleEvent={login}/>
-                <div>email: {registerEmail}</div>
-                <div>password: {registerPassword}</div>
+              {!showRegisterForm ?
+                <UserForm formProps={loginFormConfig}/>
+                :
+                undefined
+                // TODO add the register form below and replace showLoadingSpinner with authenticationStatus for spinner dosplay
+                // <UserForm formName={'Register'} placeholder1={'User...'} placeholder2='Password...' setOption2={setRegisterEmailx} setLoginPasswordxxx={setRegisterPasswordx} handleEvent={login}/>
+                }
+                {showLoadingSpinner ? <p>signing in....</p> : undefined}
+                <div>email: {loggedUser}</div>
+                <div>password: {loginPassword}</div>
                 <div>auth status: {authenticationStatus}</div>
                 <div>USERX: {currentUserX}</div>
             </form>
-
           <br />
           <br />
         </div>
     )
   }
-
-
-    // return (
-    //     <div>
-    //         <form className="login">
-    //             <LoginForm formName={'Irina Loghin'} placeholder1={'user...'} placeholder2='password...' xxx={setRegisterEmailx} yyy={setRegisterPasswordx} handleEvent={login}/>
-    //             <div>email: {registerEmail}</div>
-    //             <div>email: {registerPassword}</div>
-    //         </form>
-
-    //       <br />
-    //       <br />
-    //     </div>
-    // )
 }

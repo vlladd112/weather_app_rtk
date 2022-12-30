@@ -6,10 +6,18 @@
 
 .local-weather {
     display: flex;
+    min-width: 33%;
+    justify-content: center;
+}
+
+.user-info {
+    min-width: 33%;
 }
 
 .user-options {
     display: flex;
+    min-width: 33%;
+    justify-content: end;
 }
 
 .option-form {

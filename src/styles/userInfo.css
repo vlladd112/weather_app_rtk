@@ -1,0 +1,7 @@
+.info-wrapper p {
+    text-align: start;
+}
+
+.info-wrapper button {
+    width: fit-content;
+}

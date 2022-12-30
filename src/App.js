@@ -59,7 +59,7 @@ const logout = async () => {
     <div className="App">
       <Nav />
       <Content />
-      <div>
+      {/* <div>
         <div>
           <h3>Register</h3>
           <input placeholder='Email...' onChange={(e) => {setRegisterEmail(e.target.value)}}/>
@@ -80,7 +80,7 @@ const logout = async () => {
           logged user: <div>{user?.email}</div>
           <button onClick={logout}>Sign out</button>
         </div>
-      </div>
+      </div> */}
       <AuthWrapper />
     </div>
   );

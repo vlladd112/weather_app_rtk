@@ -1,12 +1,10 @@
 import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
-    onAuthStateChanged,
     signOut
   } from 'firebase/auth';
 
   // registers a users and does an automatically login for the user
-// const register = async () => {
 export async function register(auth, registerEmail, registerPassword) {
     try {
       const response = await createUserWithEmailAndPassword(auth, registerEmail, registerPassword);

@@ -37,3 +37,11 @@
     transform: translateY(0px);
   }
 }
+
+.show {
+  display: block;
+}
+
+.hidden {
+  display: none;
+}

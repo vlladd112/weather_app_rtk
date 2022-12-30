@@ -1,12 +1,12 @@
 import { useSelector } from 'react-redux';
 import { searchedWeatherStatus, searchedWeatherFromState } from '../features/weather/searchedWeatherSlice';
 
-export function SearchedWeather () {
+export function SearchedWeather ({ user }) {
     
     const searchedWeatherDetails = useSelector(searchedWeatherFromState);
     const searchedWeatherCurrentStatus = useSelector(searchedWeatherStatus);
 
-    if(searchedWeatherCurrentStatus === 'idle') {
+    if(searchedWeatherCurrentStatus === 'idle' && user) {
         return (
             (searchedWeatherDetails && <div className="searched-location-details">
                 <div>
